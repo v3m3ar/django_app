@@ -1,0 +1,29 @@
+{% extends 'vamarapp/base.html' %}
+
+{% block title %}
+    VAMAR
+{% endblock %}
+
+{% block desktop_button %}
+    <nav class="bg-green-900 px-8 pt-2 shadow-xl mx-2 mt-1 rounded-xl">
+        <div class="-mb-px flex justify-center">
+            {% if request.user.is_authenticated %}
+                <a class="no-underline text-green-300 border-b-4 border-green-300 uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'index' %}">Главная</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'profile' %}">Профиль</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'logout' %}">Выход</a>
+            {% else %}
+                <a class="no-underline text-green-300 border-b-4 border-green-300 uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'index' %}">Главная</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'login' %}">Логин</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'registration' %}">Регистрация</a>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <p class="text-2xl text-center">Главная страница</p>
+    <p class="pt-5">Мессенджер который войдет в историю</p>
+    {% if request.user.is_authenticated %}
+    <p>Привет {{ request.user }}. Ты успешно вошел</p>
+    {% endif %}
+{% endblock %}

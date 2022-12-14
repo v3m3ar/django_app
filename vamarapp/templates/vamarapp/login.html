@@ -1,0 +1,28 @@
+{% extends 'vamarapp/base.html' %}
+
+{% block title %}
+    VAMAR
+{% endblock %}
+
+{% block desktop_button %}
+    <nav class="bg-green-900 px-8 pt-2 shadow-xl mx-2 mt-1 rounded-xl">
+         <div class="-mb-px flex justify-center">
+             <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'index' %}">Главная</a>
+             <a class="no-underline text-green-300 border-b-4 border-green-300 uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'login' %}">Логин</a>
+             <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'registration' %}">Регистрация</a>
+         </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <p class="p-2 text-center">Вход в аккаунт</p>
+    <form method="POST">
+      <div class="text-center">
+          {% csrf_token %}
+          <input class="p-2 rounded-t-xl border-b-2" type="username" name="username" required placeholder="Введите логин"><br>
+          <input class="p-2 rounded-b-xl border-b-2" type="password" name="password" required placeholder="Введите пароль"><br>
+          {{ error_message }}<br>
+          <button class="bg-green-600 rounded-lg m-2 p-2 px-10 shadow-xl hover:bg-green-800" type="submit">Login</button>
+      </div>
+    </form>
+{% endblock %}
