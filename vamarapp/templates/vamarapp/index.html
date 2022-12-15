@@ -21,9 +21,15 @@
 {% endblock %}
 
 {% block content %}
-    <p class="text-2xl text-center">Главная страница</p>
-    <p class="pt-5">Мессенджер который войдет в историю</p>
     {% if request.user.is_authenticated %}
-    <p>Привет {{ request.user }}. Ты успешно вошел</p>
+            <div class="text-center">
+                <a href="{% url 'message' %}" class="bg-gray-100 py-3 px-8 rounded-xl shadow-xl">Сообщения</a>
+            </div>
+            <div class="text-center mt-6">
+                <a href="{% url 'friends' %}" class="bg-gray-100 py-3 px-8 rounded-xl shadow-xl">Друзья</a>
+            </div>
+    {% else %}
+        <p class="text-2xl text-center">Главная страница</p>
+        <p class="pt-5">Мессенджер который войдет в историю</p>
     {% endif %}
 {% endblock %}

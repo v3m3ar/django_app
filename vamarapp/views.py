@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth import login, logout, authenticate
+from .models import Chat, Message
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -8,11 +10,38 @@ def index(request):
     return render(request, 'vamarapp/index.html', context)
 
 
+def friend_page(request):
+    if not request.user.is_authenticated:
+        return redirect('index')
+    user = User.objects.all()
+    context = {'user': user}
+    return render(request, 'vamarapp/friends.html', context)
+
+
+def message_page(request):
+    if not request.user.is_authenticated:
+        return redirect('index')
+    message = Message.objects.all()
+    chat = Chat
+    context = {"request": request, 'chat': chat, 'message': message}
+    return render(request, 'vamarapp/message.html', context)
+
+
 def profile_page(request):
     if not request.user.is_authenticated:
         return redirect('index')
     context = {'request': request}
     return render(request, 'vamarapp/profile.html', context)
+
+
+def delete_page(request):
+    if not request.user.is_authenticated:
+        return redirect('index')
+
+    u = User.objects.get(username=request.user)
+    u.delete()
+
+    return redirect('logout')
 
 
 def logout_page(request):

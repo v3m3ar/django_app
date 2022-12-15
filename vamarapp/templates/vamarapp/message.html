@@ -1,0 +1,46 @@
+{% extends 'vamarapp/base.html' %}
+
+{% block title %}
+    VAMAR
+{% endblock %}
+
+{% block desktop_button %}
+    <nav class="bg-green-900 px-8 pt-2 shadow-xl mx-2 mt-1 rounded-xl">
+        <div class="-mb-px flex justify-center">
+            {% if request.user.is_authenticated %}
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'index' %}">Главная</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'profile' %}">Профиль</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'logout' %}">Выход</a>
+            {% else %}
+                <a class="no-underline text-green-300 border-b-4 border-green-300 uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'index' %}">Главная</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'login' %}">Логин</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'registration' %}">Регистрация</a>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        {% for i in message %}
+            {% if i.author == request.user %}
+                <p class="p-1 text-green-800 text-xl text-right bg-gray-300 rounded-t-xl border-x-2 border-t-2 border-gray-500 shadow-xl">
+                    Вы
+                    {% if i.is_readed %}
+                        - прочитано
+                    {% endif %}
+
+                </p>
+                <p class="p-2 text-right bg-gray-400 shadow-xl border-2 border-gray-500">{{ i }}</p>
+                <p class="text-sm p-1 bg-gray-400 text-right border-b-2 border-x-2 border-gray-500 rounded-b-xl mb-2">{{ i.pub_date }}</p>
+            {% else %}
+                <p class="p-1 text-green-800 text-xl text-left border-x-2 bg-gray-100 rounded-t-xl border-t-2 border-gray-400 shadow-xl">{{ i.author }}
+                {% if i.is_readed %}
+                    {% endif %}
+                </p>
+                <p class="p-2 text-left bg-gray-200 shadow-xl border-2 border-gray-400">{{ i }}</p>
+                <p class="text-sm p-1 bg-gray-200 text-left border-b-2 border-x-2 border-gray-400 mb-2 rounded-b-xl">{{ i.pub_date }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

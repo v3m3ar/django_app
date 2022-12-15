@@ -9,7 +9,7 @@
         <div class="-mb-px flex justify-center">
             {% if request.user.is_authenticated %}
                 <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'index' %}">Главная</a>
-                <a class="no-underline text-green-300 border-b-4 border-green-300 uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'profile' %}">Профиль</a>
+                <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'profile' %}">Профиль</a>
                 <a class="no-underline text-white border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'logout' %}">Выход</a>
             {% else %}
                 <a class="no-underline text-green-300 border-b-4 border-green-300 uppercase tracking-wide font-bold text-xs py-3 mr-8" href="{% url 'index' %}">Главная</a>
@@ -22,27 +22,11 @@
 
 {% block content %}
     <div class="text-center">
+        {% for i in user %}
         <div class="bg-gray-200 p-2 mb-2 rounded-xl shadow-xl">
-            <p class="text-green-900">Имя</p>
-            <p>{{ request.user.first_name }}</p>
+            <p class="text-green-900">{{ i }}</p>
+            <p class="text-green-900">{{ i.first_name }} {{ i.last_name }}</p>
         </div>
-        <div class="bg-gray-200 p-2 mb-2 rounded-xl shadow-xl">
-            <p class="text-green-900">Фамилия</p>
-            <p>{{ request.user.last_name }}</p>
-        </div>
-        <div class="bg-gray-200 p-2 mb-2 rounded-xl shadow-xl">
-            <p class="text-green-900">Логин</p>
-            <p>{{ request.user }}</p>
-        </div>
-        <div class="bg-gray-200 p-2 rounded-xl mb-2 shadow-xl">
-            <p class="text-green-900">Почта</p>
-            <p>{{ request.user.email }}</p>
-        </div>
-        <a href="{% url 'delete' %}">
-            <div class="bg-red-200 p-2 rounded-xl shadow-xl">
-                <p class="text-green-900">Удалить профиль</p>
-            </div>
-        </a>
-
+        {% endfor %}
     </div>
 {% endblock %}
